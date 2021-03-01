@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include "Student.h"
+#include "SortTestHelper.h"
+
 // #include <algorithm>
 // 老版本中 swap 在上面的库中
 // 新版本在 std 中
@@ -58,5 +60,19 @@ int main(){
         cout << d[i];
     }
     cout << endl;
+
+    // 使用 SortTestHelper 随机生成的数组
+    int n = 10000;
+    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
+    selectionSort(arr, n);
+
+    for (int i = 0; i < n; ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    // 在 generateRandomArray 使用了 new 方法，需要 delete 释放
+    delete[] arr;
+
     return 0;
 }
