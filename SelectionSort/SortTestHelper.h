@@ -30,5 +30,15 @@ namespace SortTestHelper{
 
         return  arr;
     }
+
+    template <typename T>
+    void printArray(T arr[], int n) {
+        for (int i = 0; i < n; ++i) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+
+        return;
+    }
 }
 #endif //PLAY_WITH_ALGORITHMS_SORTTESTHELPER_H

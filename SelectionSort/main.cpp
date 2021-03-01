@@ -48,10 +48,7 @@ int main(){
     // 字符串排序
     string c[4] = {"D", "C", "B", "A"};
     selectionSort(c, 4);
-    for (int i = 0; i < 4; ++i) {
-        cout << c[i] << " ";
-    }
-    cout << endl;
+    SortTestHelper::printArray(c, 4);
 
     // 自定义数据类型排序
     Student d[4] = {{"Leo", 90}, {"Daniel", 99}, {"Echo", 100}, {"Tracy", 99}};
