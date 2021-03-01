@@ -5,7 +5,9 @@
 // 新版本在 std 中
 
 using namespace std;
-void selectionSort(int arr[], int n){
+
+template<typename T>
+void selectionSort(T arr[], int n){
     for (int i = 0; i < n; ++i) {
 
         // 寻找 [i, n)区间内的最小值
