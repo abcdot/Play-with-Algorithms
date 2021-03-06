@@ -56,11 +56,17 @@ namespace SortTestHelper{
         clock_t start_time = clock();
         sort(arr, n);
         clock_t end_time = clock();
-
+//        printArray(arr, n);
         assert(isSorted(arr, n));
 
         cout << sortName << " : " << double (end_time - start_time) / CLOCKS_PER_SEC << " s" << endl;
 
+    }
+
+    int* copyIntArray(int a[], int n){
+        int *arr = new int[n];
+        copy(a, a+n, arr);
+        return arr;
     }
 }
 #endif //PLAY_WITH_ALGORITHMS_SORTTESTHELPER_H

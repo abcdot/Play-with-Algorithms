@@ -1,33 +1,19 @@
+//
+// Created by Daniel on 2021/3/6.
+//
+
+#ifndef PLAY_WITH_ALGORITHMS_SELECTIONSORTCASE_H
+#define PLAY_WITH_ALGORITHMS_SELECTIONSORTCASE_H
+
 #include <iostream>
+#include <algorithm>
 #include <string>
+
 #include "Student.h"
 #include "SortTestHelper.h"
+#include "SelectionSort.h"
 
-// #include <algorithm>
-// 老版本中 swap 在上面的库中
-// 新版本在 std 中
-
-using namespace std;
-
-// 时间复杂度为 n^2
-template<typename T>
-void selectionSort(T arr[], int n){
-    for (int i = 0; i < n; ++i) {
-
-        // 寻找 [i, n)区间内的最小值
-        int minIndex = i;
-        for (int j = i + 1; j < n; ++j) {
-            if (arr[j] < arr[minIndex])
-                minIndex = j;
-        }
-
-        // 数据交换
-        swap(arr[i], arr[minIndex]);
-    }
-}
-
-int main(){
-
+void SelectionSortCase(){
     // 整型排序
     int a[10] = {10, 9,8,7,6,5,4,3,2,1};
     selectionSort(a, 10);
@@ -60,7 +46,7 @@ int main(){
     cout << endl;
 
     // 使用 SortTestHelper 随机生成的数组
-    int n = 100000;
+    int n = 1000;
     int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     selectionSort(arr, n);
 
@@ -70,11 +56,9 @@ int main(){
     cout << endl;
 
     // 在 generateRandomArray 使用了 new 方法，需要 delete 释放
-
     // 使用
     SortTestHelper::testSort("Selection Sort", selectionSort, arr, n);
     delete[] arr;
-
-
-    return 0;
 }
+
+#endif //PLAY_WITH_ALGORITHMS_SELECTIONSORTCASE_H
