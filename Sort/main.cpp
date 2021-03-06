@@ -14,7 +14,9 @@ int main(){
     // SelectionSortCase();
 
     int n = 10000;
-    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
+
+    // 对于近乎有序数组来说 插入排序要远远的比选择排序效率高
+    int *arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
     int *arr2 = SortTestHelper::copyIntArray(arr, n);
 
     SortTestHelper::testSort("Insertion Sort", insertionSort, arr, n);
