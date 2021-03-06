@@ -6,6 +6,7 @@
 #define PLAY_WITH_ALGORITHMS_SORTTESTHELPER_H
 
 #include <iostream>
+#include <string>
 #include <ctime>
 #include <cassert>
 
@@ -52,7 +53,7 @@ namespace SortTestHelper{
 
     // 添加测试算法性能（时间）函数
     template<typename T>
-    void testSort(string sortName, void(*sort)(T[], int), T arr[], int n){
+    void testSort(const string &sortName, void(*sort)(T[], int), T arr[], int n){
         clock_t start_time = clock();
         sort(arr, n);
         clock_t end_time = clock();
