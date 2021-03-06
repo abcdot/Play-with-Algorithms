@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// 时间复杂度为 n^2
 template<typename T>
 void selectionSort(T arr[], int n){
     for (int i = 0; i < n; ++i) {
@@ -59,7 +60,7 @@ int main(){
     cout << endl;
 
     // 使用 SortTestHelper 随机生成的数组
-    int n = 10000;
+    int n = 100000;
     int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     selectionSort(arr, n);
 
@@ -69,7 +70,11 @@ int main(){
     cout << endl;
 
     // 在 generateRandomArray 使用了 new 方法，需要 delete 释放
+
+    // 使用
+    SortTestHelper::testSort("Selection Sort", selectionSort, arr, n);
     delete[] arr;
+
 
     return 0;
 }

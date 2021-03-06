@@ -40,5 +40,27 @@ namespace SortTestHelper{
 
         return;
     }
+
+    template<typename T>
+    bool isSorted(T arr[], int n) {
+        for (int i = 0; i < n - 1; ++i) {
+            if(arr[i] > arr[i+1])
+                return false;
+        }
+        return true;
+    }
+
+    // 添加测试算法性能（时间）函数
+    template<typename T>
+    void testSort(string sortName, void(*sort)(T[], int), T arr[], int n){
+        clock_t start_time = clock();
+        sort(arr, n);
+        clock_t end_time = clock();
+
+        assert(isSorted(arr, n));
+
+        cout << sortName << " : " << double (end_time - start_time) / CLOCKS_PER_SEC << " s" << endl;
+
+    }
 }
 #endif //PLAY_WITH_ALGORITHMS_SORTTESTHELPER_H
