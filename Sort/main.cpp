@@ -2,6 +2,7 @@
 #include "SortTestHelper.h"
 #include "InsertionSort.h"
 #include "SelectionSort.h"
+#include "MergeSort.h"
 
 // #include <algorithm>
 // 老版本中 swap 在上面的库中
@@ -13,16 +14,25 @@ int main(){
     // 选择排序测试用例
     // SelectionSortCase();
 
-    int n = 10000;
+    int n = 50000;
 
     // 对于近乎有序数组来说 插入排序要远远的比选择排序效率高
-    int *arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
+//    int *arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
+    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     int *arr2 = SortTestHelper::copyIntArray(arr, n);
+    int *arr3 = SortTestHelper::copyIntArray(arr, n);
 
+    cout << "Test for Random Array, size = " << n << ", random range [0, " << n << "]" << endl;
+    // 时间复杂度 n^2
     SortTestHelper::testSort("Insertion Sort", insertionSort, arr, n);
     SortTestHelper::testSort("Selection Sort", selectionSort, arr2, n);
 
+    // 时间复杂度 nlogn
+    SortTestHelper::testSort("Merge Sort", mergeSort, arr3, n);
+
     delete[] arr;
     delete[] arr2;
+    delete[] arr3;
+
     return 0;
 }
