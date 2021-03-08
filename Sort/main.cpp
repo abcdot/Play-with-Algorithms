@@ -22,6 +22,7 @@ int main(){
 //    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     int *arr2 = SortTestHelper::copyIntArray(arr, n);
     int *arr3 = SortTestHelper::copyIntArray(arr, n);
+    int *arr4 = SortTestHelper::copyIntArray(arr, n);
 
     cout << "Test for Nearly Ordered Array, size = " << n << ", random range [0, " << n << "]" << endl;
     // 时间复杂度 n^2
@@ -31,10 +32,12 @@ int main(){
     // 时间复杂度 nlogn
     // 对近乎有序的数组会退化到 n^2
     SortTestHelper::testSort("Merge Sort", mergeSort, arr3, n);
+    SortTestHelper::testSort("Merge Sort BU", mergeSortBU, arr4, n);
 
     delete[] arr;
     delete[] arr2;
     delete[] arr3;
+    delete[] arr4;
 
     return 0;
 }

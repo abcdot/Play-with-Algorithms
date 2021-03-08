@@ -68,4 +68,16 @@ void mergeSort(T arr[], int n){
 }
 
 
+// 自底向上归并
+template<typename T>
+void mergeSortBU(T arr[], int n){
+    for (int i = 1; i <=n ; i+=i) {
+        for (int j = 0; j + i < n; j += i + i) {
+
+            // 对 arr[j...j + i - 1] 和 arr[j + i... j + 2 * i - 1] 进行归并
+            __merge(arr, j , j + i - 1, min(j + i + i - 1, n -1 ));
+        }
+    }
+}
+
 #endif //PLAY_WITH_ALGORITHMS_MERGESORT_H
