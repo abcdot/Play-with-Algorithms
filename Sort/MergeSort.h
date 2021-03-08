@@ -5,7 +5,8 @@
 #ifndef PLAY_WITH_ALGORITHMS_MERGESORT_H
 #define PLAY_WITH_ALGORITHMS_MERGESORT_H
 
-#include <algorithm>
+#include <iostream>
+#include "InsertionSort.h"
 
 using namespace std;
 
@@ -40,15 +41,25 @@ void __merge(T arr[], int l, int mid, int r){
 // 使用递归实现归并排序， 对 arr[l....r] 的范围进行排序
 template<typename T>
 void __mergeSort(T arr[], int l, int r){
-    if(l >= r)
+
+//        if(l >= r)
+//            return;
+
+    // 优化二：
+    if(r - l <= 15 ){
+        insertionSort(arr, l, r);
         return;
+    }
 
     // 坑：l&r 是非常大的数时有可能溢出
     int mid = (l+r)/2;
 
     __mergeSort(arr, l, mid);
     __mergeSort(arr, mid+1, r);
-    __merge(arr, l, mid, r);
+
+    // 优化一：
+    if(arr[mid] > arr[mid+1])
+        __merge(arr, l, mid, r);
 }
 // 时间复杂度 nlogn
 template<typename T>

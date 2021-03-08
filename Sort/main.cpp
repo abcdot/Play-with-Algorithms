@@ -17,17 +17,19 @@ int main(){
     int n = 50000;
 
     // 对于近乎有序数组来说 插入排序要远远的比选择排序效率高
-//    int *arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
-    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
+     int swapTimes = 0;
+     int *arr = SortTestHelper::generateNearlyOrderedArray(n, swapTimes);
+//    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     int *arr2 = SortTestHelper::copyIntArray(arr, n);
     int *arr3 = SortTestHelper::copyIntArray(arr, n);
 
-    cout << "Test for Random Array, size = " << n << ", random range [0, " << n << "]" << endl;
+    cout << "Test for Nearly Ordered Array, size = " << n << ", random range [0, " << n << "]" << endl;
     // 时间复杂度 n^2
     SortTestHelper::testSort("Insertion Sort", insertionSort, arr, n);
     SortTestHelper::testSort("Selection Sort", selectionSort, arr2, n);
 
     // 时间复杂度 nlogn
+    // 对近乎有序的数组会退化到 n^2
     SortTestHelper::testSort("Merge Sort", mergeSort, arr3, n);
 
     delete[] arr;
