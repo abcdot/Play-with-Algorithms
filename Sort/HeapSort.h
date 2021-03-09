@@ -79,6 +79,23 @@ public:
         count = 0;
         this -> capacity = capacity;
     }
+
+    // 任意数组形成堆 n
+    // 主要用于动态数据
+    // 一个一个插入是 nlogn
+    MaxHeap(Item arr[], int n){
+        data = new Item[n+1];
+        capacity = n;
+        for (int i = 0; i < n; ++i) {
+            data[i+1] = arr[i];
+        }
+        count = n;
+
+        for (int i = count/2; i >= 1; i--) {
+            shiftDown(i);
+        }
+    }
+
     ~MaxHeap(){
         delete [] data;
     }
@@ -169,5 +186,34 @@ public:
         }
     }
 };
+
+template<typename T>
+void __shiftDown(T arr[], int n, int k){
+    while (2*k + 1 < n){
+        int j = 2*k + 1; // 在此循环中，arr[k] 和 arr[j]交换位置
+        if(j + 1 < n && arr[j+1] > arr[j])
+            j+=1;
+        if(arr[k] >= arr[j])
+            break;
+
+        swap(arr[k], arr[j]);
+        k=j;
+    }
+}
+
+template<typename T>
+void heapSort(T arr[], int n){
+    // heapify
+    // （从最后一个元素的索引-1） / 2 开始
+    // 最后一个元素的索引 = n - 1
+    for (int i = (n-1-1)/2; i >=0 ; i--) {
+        __shiftDown(arr, n, i);
+    }
+
+    for (int i = n-1; i > 0 ; i--) {
+        swap(arr[0], arr[i]);
+        __shiftDown(arr, i, 0);
+    }
+}
 
 #endif //PLAY_WITH_ALGORITHMS_HEAPSORT_H

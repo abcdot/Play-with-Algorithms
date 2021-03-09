@@ -75,6 +75,18 @@ int main(){
 
     cout << endl;
 
+    // 堆排序
+    // 1、一个一个插入一个一个取出
+    // 2、第二个构造函数 直接构造，然后取出
+    /* 3、 原地堆排序
+     * parent(i) = (i-1) /2
+     * left child (i) = 2 * i + 1
+     * right child (i) = 2 * i + 2
+     * 最后一个非叶子节点的索引 （count - 1）/ 2
+     * */
+     int *arr = SortTestHelper::generateRandomArray(100000, 0, 100000);
+     SortTestHelper::testSort("Heap Sort3", heapSort, arr, 100000);
+     delete[] arr;
 
     return 0;
 }
