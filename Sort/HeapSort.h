@@ -216,4 +216,132 @@ void heapSort(T arr[], int n){
     }
 }
 
+
+// 索引堆
+/* 0     1 2 3 4 5
+ * index 5 3 2 1 4
+ * data  15
+ * */
+template<typename Item>
+class IndexMaxHeap{
+private:
+    Item* data;
+    int* indexs;
+    int count;
+    int capacity;
+
+    void shiftUp(int k){
+        while (k > 1 && data[indexs[k/2]] < data[indexs[k]]){
+            swap(indexs[k/2], indexs[k]);
+            k /=2;
+        }
+    };
+
+    void shiftDown(int k){
+        while (2*k <= count){
+            int j = 2 * k; // 在此轮循环中，data[k] 和 data[j] 交换位置
+
+            if(j + 1 <= count && data[indexs[j+1]] > data[indexs[j]])
+                j += 1;
+
+            if(data[indexs[k]] >= data[indexs[j]])
+                break;
+
+            swap(indexs[k], indexs[j]);
+            k = j;
+        }
+    }
+
+public:
+    IndexMaxHeap(int capacity){
+        data = new Item[capacity + 1];
+        indexs = new int [capacity + 1];
+        count = 0;
+        this -> capacity = capacity;
+    }
+
+    // 任意数组形成堆 n
+    // 主要用于动态数据
+    // 一个一个插入是 nlogn
+    IndexMaxHeap(Item arr[], int n){
+        data = new Item[n+1];
+        capacity = n;
+        for (int i = 0; i < n; ++i) {
+            data[i+1] = arr[i];
+        }
+        count = n;
+
+        for (int i = count/2; i >= 1; i--) {
+            shiftDown(i);
+        }
+    }
+
+    ~IndexMaxHeap(){
+        delete [] data;
+        delete [] indexs;
+    }
+
+    int size(){
+        return count;
+    }
+
+    bool isEmpty() {
+        return count == 0;
+    }
+
+    // 传入的 i 对用户而言，是从 0 索引的
+    void insert(int i, Item item){
+        // 是否会溢出
+        assert(count + 1 <= capacity);
+        assert(i + 2 >= 1 && i + 1 <= capacity);
+
+        i+=1;
+        data[i] = item;
+        indexs[count+1] = i;
+
+        count++;
+        shiftUp(count);
+    }
+    Item extractItem(){
+        assert( count > 0);
+
+        Item ret = data[indexs[1]];
+        swap(indexs[1], indexs[count]);
+
+        count--;
+        shiftDown(1);
+        return ret;
+    }
+
+    Item extractItemIndex(){
+        assert( count > 0);
+
+        Item ret = indexs[1] - 1;
+        swap(indexs[1], indexs[count]);
+
+        count--;
+        shiftDown(1);
+        return ret;
+    }
+
+    Item getItem(int  i){
+        return  data[i+1];
+    }
+
+    void change(int i, Item newItem){
+        i+=1;
+        data[i] = newItem;
+
+        // 找到 indexs[j] = i ,j 表示 data[i] 在堆中的位置
+        // 之后 shiftUp(j) 再 shiftDown(j)
+        for (int j = 1; j <= count ; ++j) {
+            if(indexs[j] == i){
+                shiftUp(j);
+                shiftDown(j);
+                return;
+            }
+        }
+    }
+};
+
 #endif //PLAY_WITH_ALGORITHMS_HEAPSORT_H
